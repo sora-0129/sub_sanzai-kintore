@@ -1,6 +1,30 @@
 // オフライン対応：ネット優先、つながらない時はキャッシュを使う
-const CACHE = "sanzai-kintore-v1";
-const ASSETS = ["./", "./index.html", "./manifest.json", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
+const CACHE = "sanzai-kintore-v2";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./css/style.css",
+  "./js/main.js",
+  "./js/util/Observable.js",
+  "./js/util/format.js",
+  "./js/model/calendar.js",
+  "./js/model/workout.js",
+  "./js/model/defaults.js",
+  "./js/model/LocalStorageRepository.js",
+  "./js/model/WorkoutStore.js",
+  "./js/viewmodel/AppViewModel.js",
+  "./js/viewmodel/TodayViewModel.js",
+  "./js/viewmodel/HistoryViewModel.js",
+  "./js/viewmodel/SettingsViewModel.js",
+  "./js/view/ShellView.js",
+  "./js/view/TodayView.js",
+  "./js/view/HistoryView.js",
+  "./js/view/SettingsView.js",
+  "./icon-180.png",
+  "./icon-192.png",
+  "./icon-512.png",
+];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));

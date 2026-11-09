@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>散財筋トレ テスト</title>
+<style>
+  body { font: 14px/1.6 ui-monospace, Consolas, monospace; margin: 16px; }
+  .pass { color: #1f9d55; } .fail { color: #d93636; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<h1 id="summary">running…</h1>
+<ul id="results"></ul>
+<script type="module">
+import { specs } from "./specs.js";
+
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const t = {
+  eq(actual, expected) { if (actual !== expected) throw new Error(`expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`); },
+  deepEq(actual, expected) { if (!same(actual, expected)) throw new Error(`expected ${JSON.stringify(expected)},\n     got ${JSON.stringify(actual)}`); },
+};
+
+let failed = 0;
+const rows = [];
+for (const [name, fn] of Object.entries(specs)) {
+  try { fn(t); rows.push(`<li class="pass">✔ ${name}</li>`); }
+  catch (e) { failed++; rows.push(`<li class="fail">✘ ${name}\n   ${e.message}</li>`); }
+}
+const total = Object.keys(specs).length;
+document.getElementById("results").innerHTML = rows.join("");
+document.getElementById("summary").textContent = failed ? `FAIL ${failed}/${total}` : `PASS ${total}/${total}`;
+</script>
+</body>
+</html>
